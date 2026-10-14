@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Essor</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B3D2E">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#F3F7F4;--card:#fff;--tx:#0F2A21;--mut:#4F6B5F;--ok:#0E9F7A;--line:#D5E3DB;--ac:#FFB547;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1F18;--card:#123027;--tx:#F1F7F3;--mut:#A9C2B5;--ok:#3DDBB0;--line:#24473A}}
+:root[data-theme="dark"]{--bg:#0B1F18;--card:#123027;--tx:#F1F7F3;--mut:#A9C2B5;--ok:#3DDBB0;--line:#24473A}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+body{height:100%;margin:0 auto;max-width:520px;display:flex;flex-direction:column;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;align-items:center;gap:10px;padding:14px 20px 8px}
+header b{font-size:22px;flex:1;letter-spacing:.3px}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 12px;font-size:14px;font-weight:700}
+main{flex:1;overflow-y:auto;padding:8px 20px 16px;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 1px 3px #0000001a}
+.hero{background:linear-gradient(135deg,#0B3D2E,#17794F);color:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:8px;box-shadow:0 4px 14px #0B3D2E44}
+.hero .mut{color:#CFE8DB}.hero .bar{background:#ffffff33}
+h1,h2{margin:0}h1{font-size:28px;line-height:1.15}h2{font-size:18px}
+p{margin:0}.mut{color:var(--mut);font-size:14px}
+button,input{font-family:inherit;font-size:16px;color:inherit}
+.btn{min-height:48px;border:0;border-radius:14px;background:var(--ac);color:#0F2A21;font-weight:700;padding:0 18px;cursor:pointer}
+.btn:disabled{opacity:.5}
+.opt{min-height:48px;text-align:left;padding:0 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);cursor:pointer}
+.opt.on,.chip.on{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac)}
+input[type=text]{min-height:48px;box-sizing:border-box;width:100%;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--card)}
+.bar{height:10px;border-radius:5px;background:var(--line)}.bar i{display:block;height:10px;border-radius:5px;background:var(--ac)}
+.task{display:flex;align-items:center;gap:14px;min-height:56px;width:100%;text-align:left;padding:10px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);cursor:pointer}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;box-sizing:border-box;border:2px solid var(--mut)}
+.task.done .dot{background:var(--ok);border-color:var(--ok)}.task.done span:last-child{text-decoration:line-through;color:var(--mut)}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;white-space:pre-wrap}
+.me{align-self:flex-end;background:var(--ac);color:#0F2A21}.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line)}
+.row{display:flex;gap:8px}.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:40px;padding:0 14px;border-radius:20px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:14px}
+.week{display:flex;align-items:flex-end;gap:8px;height:90px}.week div{flex:1;text-align:center;font-size:12px;color:var(--mut)}.week i{display:block;margin:0 auto 4px;width:70%;border-radius:6px;background:var(--ok)}
+nav{display:flex;border-top:1px solid var(--line);padding:4px;background:var(--bg)}
+nav button{flex:1;min-height:48px;background:none;border:0;color:var(--mut);cursor:pointer;font-size:13px;padding:0 2px}nav button.on{color:var(--tx);font-weight:700;box-shadow:inset 0 3px 0 var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.pc{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 3px #0000001a}.pc img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--line)}.pc div{padding:10px;display:flex;flex-direction:column;gap:6px}.ava{width:56px;height:56px;border-radius:50%;background:var(--ac);color:#0F2A21;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center;flex:none;padding:0}a.btn{display:flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box}label:focus-within{outline:2px solid var(--ac)}
+</style>
+</head>
+<body>
+<header>
+<svg width="38" height="38" viewBox="0 0 200 200" aria-hidden="true"><rect width="200" height="200" rx="44" fill="#0B3D2E"/><circle cx="100" cy="100" r="62" fill="#FFB547"/><path d="M70 120 L95 95 L110 110 L135 80 M118 80 H135 V97" fill="none" stroke="#0B3D2E" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<b>Essor</b><span class="pill" id="st"></span>
+</header>
+<main id="v"></main>
+<nav id="nv"></nav>
+<script>
+const K='nzela-v1',GOALS=['Faire ma première vente','Gagner 100 $ en une semaine','Lancer mon commerce','Doubler mes ventes'],FREE={idea:1,pitch:2,chat:5};
+const FB=['Écris en une phrase ce que tu veux vendre cette semaine','Propose ton produit à 3 personnes aujourd\u2019hui','Note leurs réponses dans l\u2019onglet Ventes'];
+const LES=[
+['Poser les bonnes questions',["Demande d'abord : « Qu'est-ce que tu cherches exactement ? »","Demande le budget : « Tu veux dépenser autour de combien ? »","Demande pour quand il en a besoin : cela crée l'urgence.","Écoute plus que tu ne parles, puis propose UN seul produit adapté."]],
+['Répondre aux objections',["« C'est trop cher » : explique ce qu'il gagne (qualité, durée) avant de baisser le prix.","« Je vais réfléchir » : demande « Qu'est-ce qui te fait hésiter ? »","Propose une petite quantité ou un essai pour réduire son risque.","Ne te fâche jamais : un refus aujourd'hui peut devenir une vente demain."]],
+['Vendre en ligne',["Fais des photos claires, avec le prix écrit en $ ou en FC.","Publie chaque jour sur le Statut WhatsApp, Facebook et les groupes de ta ville.","Réponds vite : un client qui attend va chez un autre vendeur.","Propose Mobile Money ou le paiement à la livraison pour rassurer."]],
+['Fixer et négocier le prix',["Prix de vente = prix d'achat + tes frais + ton bénéfice.","Ne descends jamais sous ton prix d'achat.","Si tu baisses le prix, demande quelque chose en retour (acheter 2, payer tout de suite).","Affiche les prix en dollars ET en francs pour éviter les confusions."]],
+['Faire revenir le client',["Remercie après la vente et demande si tout va bien.","Demande-lui de te recommander à 2 amis.","Garde la liste de tes clients et écris-leur à chaque nouveau produit.","Tiens tes promesses de livraison : la confiance fait vendre."]]];
+let S,smp=null,tab='plan',busy=false,C=[],LB=null,pick='',B=null,BF={b:'',s:'',v:'',t:''},PT='',NG=0;
+const $=s=>document.querySelector(s);
+const E=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const fd=x=>new Date(x.getTime()-x.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const dkey=()=>fd(new Date());
+const fm=(x,c)=>c==='CDF'?Math.round(x).toLocaleString('fr')+' FC':x.toFixed(2)+' $';
+function load(){try{S=JSON.parse(localStorage.getItem(K))}catch(e){}S=S||{};S.goal=S.goal||'';S.tasks=S.tasks||{};S.log=S.log||[];S.use=S.use||{};S.rate=S.rate||2800;S.pro=S.pro||0;S.sel=S.sel||0;S.me=S.me||{n:'',s:'',c:'',t:'',d:''};S.shop=S.shop||[];S.sold=S.sold||[];S.ad=S.ad||{i:'',l:'',t:''};
+ if(!S.prods)S.prods=[S.prod?{...S.prod,c:'USD'}:{n:'',a:'',v:'',c:'USD'}]}
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+const P=()=>S.prods[S.sel]||S.prods[0];
+const can=k=>S.pro||((S.use[dkey()]||{})[k]||0)<FREE[k];
+const bump=k=>{const u=S.use[dkey()]=S.use[dkey()]||{};u[k]=(u[k]||0)+1;save()};
+const doneN=d=>{const t=S.tasks[d];return t?t.items.filter(i=>i.d).length:0};
+function streak(){let n=0,d=new Date();if(doneN(fd(d))<2)d.setDate(d.getDate()-1);while(doneN(fd(d))>=2){n++;d.setDate(d.getDate()-1)}return n}
+async function gen(){
+ const old=Object.values(S.tasks).slice(-3).flatMap(t=>t.items.map(i=>i.t)).join(' | ');
+ if(smp){try{const r=await smp.json(`Tu es Essor, stratège de commerce bienveillant pour une personne en RD Congo. Objectif : ${S.goal}. Actions récentes à ne pas répéter : ${old||'aucune'}. Donne 3 actions de vente concrètes, faisables aujourd'hui en moins de 30 minutes, gratuites et sans beaucoup de données internet. Réponds seulement par un tableau JSON de 3 phrases courtes en français.`,{modelTier:'quick',cache:false});
+  if(Array.isArray(r)&&r.length>=3)return{ai:1,items:r.slice(0,3).map(t=>({t:String(t),d:0}))}}catch(e){}}
+ return{ai:0,items:FB.map(t=>({t,d:0}))}}
+async function newPlan(){busy=true;render();S.tasks[dkey()]=await gen();busy=false;save();render()}
+async function send(txt){
+ txt=(txt||'').trim();if(!txt||busy||!smp)return;
+ if(!can('chat')){NG=1;render();return}bump('chat');
+ C.push({role:'user',content:txt});C.push({role:'assistant',content:''});busy=true;render();
+ const IN=`Tu es Essor, coach IA de commerce, bienveillant et concret, pour une personne en RD Congo. Objectif : ${S.goal}. Les prix peuvent être en dollars ou en francs congolais. Réponds en français simple, en 4 phrases maximum, avec une action claire.`;
+ const m=C.slice(0,-1).map((x,i)=>i?x:{role:'user',content:IN+'\n\n'+x.content});
+ try{await smp(m,{cache:false,modelTier:'quick',onText:({text})=>{C[C.length-1].content=text;if(LB)LB.textContent=text}})}
+ catch(e){C[C.length-1].content='Je ne peux pas répondre pour le moment. Réessaie dans un instant.'}
+ busy=false;render()}
+async function pitch(){
+ if(!can('pitch')){NG=1;render();return}bump('pitch');
+ const p=P();busy=true;PT='';render();
+ try{const r=await smp(`Tu es Essor, stratège de commerce pour une personne en RD Congo. Produit : ${p.n}. Prix de vente : ${p.v||'?'} ${p.c==='CDF'?'francs congolais':'dollars'}. Écris : 1) un discours de vente de 3 phrases à dire à un client, 2) trois questions à poser au client pour comprendre son besoin, 3) la réponse à « c'est trop cher », 4) la réponse à « je vais réfléchir ». Français simple, court.`,{modelTier:'quick',cache:false});PT=r.text}
+ catch(e){PT='Je ne peux pas répondre pour le moment. Réessaie.'}
+ busy=false;render()}
+async function ideas(){
+ if(!smp||busy)return;if(!can('idea')){NG=1;render();return}bump('idea');busy=true;B=null;render();
+ try{const r=await smp.json(`Tu es Essor, conseiller en commerce pour une personne en RD Congo. Budget de départ : ${BF.b||'très petit'} dollars. Compétences : ${BF.s||'non précisées'}. Ville : ${BF.v||'non précisée'}. Temps par jour : ${BF.t||'2 heures'}. Propose 3 idées de produits ou de commerces réalistes à lancer maintenant, avec vente en ligne possible (WhatsApp, Facebook, mobile money). Réponds seulement par un tableau JSON de 3 objets avec les clés : nom, pourquoi, capital (texte court en dollars), etapes (tableau de 3 phrases courtes pour créer le commerce), gain (estimation prudente, texte court). Français simple.`,{modelTier:'default',cache:false});
+  B=Array.isArray(r)?r.slice(0,3):null}catch(e){B=null}
+ busy=false;if(!B)B=[];render()}
+function render(){
+ const v=$('#v'),nv=$('#nv');v.textContent='';nv.textContent='';LB=null;
+ $('#st').textContent=S.goal?streak()+' j de suite':'';
+ if(!S.acct||!S.in){auth(v);return}
+ if(!S.goal){onboard(v);return}
+ [['plan','Plan'],['biz','Idées'],['sales','Ventes'],['shop','Boutique'],['coach','Coach'],['plus','Plus']].forEach(([k,l])=>{const b=E('button',tab===k?'on':'',l);b.onclick=()=>{tab=k;render()};nv.append(b)});
+ if(NG){NG=0;const c=E('div','card');c.style.cssText='display:flex;flex-direction:column;gap:10px';c.append(E('p','','Tu as atteint la limite gratuite. Passe Premium pour continuer.'));const b=E('button','btn','Voir Premium');b.onclick=()=>{tab='plus';render()};c.append(b);v.append(c)}
+ if(tab==='plan'||tab==='shop'||tab==='sales')adBanner(v);
+ ({plan,biz,sales,shop,coach,plus})[tab](v)}
+let AM='',AE='',AF={};
+function auth(v){
+ if(!AM)AM=S.acct?'in':'new';
+ const h=E('div','hero');h.append(E('h1','','Bienvenue sur Essor'),E('p','mut','Crée ta boutique et vends partout en RD Congo.'));v.append(h);
+ const tb=E('div','row');[['new','Créer un compte'],['in','Se connecter']].forEach(([k,l])=>{const b=E('button','opt'+(AM===k?' on':''),l);b.style.flex='1';b.onclick=()=>{AM=k;AE='';render()};tb.append(b)});v.append(tb);
+ const g=E('button','opt','Continuer avec Google (bientôt)');g.disabled=true;g.style.opacity='.6';v.append(g);
+ const F=AF;
+ (AM==='new'?[['n','Ton nom'],['s','Nom de ta boutique'],['e','Ton adresse Gmail']]:[['e','Ton adresse Gmail']]).forEach(([k,ph])=>{const i=E('input');i.type='text';i.inputMode=k==='e'?'email':'text';i.placeholder=ph;i.value=F[k]||'';i.maxLength=60;i.setAttribute('aria-label',ph);i.oninput=()=>{F[k]=i.value};v.append(i)});
+ if(AE)v.append(E('p','',AE));
+ const go=E('button','btn',AM==='new'?'Créer mon compte':'Me connecter');
+ go.onclick=()=>{const e=(F.e||'').trim().toLowerCase();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){AE='Entre une adresse e-mail valide.';render();return}
+  if(AM==='new'){if(!(F.n||'').trim()||!(F.s||'').trim()){AE='Entre ton nom et le nom de ta boutique.';render();return}S.acct={e,n:F.n.trim(),s:F.s.trim()};S.me.n=S.acct.n;S.me.s=S.acct.s}
+  else if(!S.acct||S.acct.e!==e){AE='Aucun compte avec cette adresse sur cet appareil.';render();return}
+  S.in=1;AE='';save();render()};
+ v.append(go,E('p','mut','Version démo : le compte est enregistré sur cet appareil. La connexion Google et la synchronisation arrivent avec la version Android et son serveur.'))}
+function onboard(v){
+ v.append(E('h1','','Ton stratège de commerce.'),E('p','mut','Choisis ton objectif. Essor te donne 3 actions de vente chaque jour.'));
+ GOALS.forEach(g=>{const b=E('button','opt'+(pick===g?' on':''),g);b.onclick=()=>{pick=g;render()};v.append(b)});
+ const i=E('input');i.type='text';i.placeholder='Ou écris ton propre objectif';i.maxLength=80;i.oninput=()=>{pick=i.value.trim()};v.append(i);
+ const go=E('button','btn','Créer mon plan');go.onclick=()=>{if(!pick)return;S.goal=pick;save();tab='plan';newPlan()};v.append(go)}
+function plan(v){
+ const t=S.tasks[dkey()],n=t?doneN(dkey()):0;
+ const g=E('div','hero'),bar=E('div','bar');bar.append(document.createElement('i'));bar.firstChild.style.width=(n/3*100)+'%';
+ g.append(E('p','mut','Objectif'),E('h2','',S.goal),bar,E('p','mut',n+' sur 3 actions faites aujourd\u2019hui'));v.append(g);
+ if(busy&&!t){v.append(E('p','mut','Essor prépare ton plan du jour…'));return}
+ v.append(E('h2','','Tes 3 actions'));
+ if(t){t.items.forEach(it=>{const b=E('button','task'+(it.d?' done':''));b.append(E('span','dot'),E('span','',it.t));b.onclick=()=>{it.d=it.d?0:1;save();render()};v.append(b)});
+  if(n===3)v.append(E('p','',"Bravo, journée réussie. Reviens demain pour garder ta série."))}
+ const nb=E('button','btn',t?'Changer mon plan':'Créer mon plan du jour');nb.disabled=busy;nb.onclick=newPlan;v.append(nb);
+ v.append(E('p','mut',smp?'Plan créé par ton coach IA.':'Mode simple : le coach IA n\u2019est pas disponible ici.'))}
+function sales(v){
+ const p=P(),a=parseFloat(p.a)||0,s=parseFloat(p.v)||0,g=s-a,cu=p.c,sym=cu==='CDF'?'FC':'$';
+ v.append(E('h2','','Test de commerce'),E('p','mut','Ajoute tes produits, en dollars ou en francs. Propose-les et note chaque réponse.'));
+ const ch=E('div','chips');S.prods.forEach((q,i)=>{const b=E('button','chip'+(i===S.sel?' on':''),q.n||'Produit '+(i+1));b.onclick=()=>{S.sel=i;save();render()};ch.append(b)});
+ const ad=E('button','chip','+ Produit');ad.onclick=()=>{S.prods.push({n:'',a:'',v:'',c:'USD'});S.sel=S.prods.length-1;save();render()};ch.append(ad);v.append(ch);
+ const cr=E('div','row');[['USD','Dollars ($)'],['CDF','Francs (FC)']].forEach(([k,l])=>{const b=E('button','opt'+(cu===k?' on':''),l);b.style.flex='1';b.onclick=()=>{p.c=k;save();render()};cr.append(b)});v.append(cr);
+ [['n','Produit (ex. savon, crédit, jus)'],['a','Prix d\u2019achat en '+sym],['v','Prix de vente en '+sym]].forEach(([k,ph])=>{const i=E('input');i.type='text';i.inputMode=k==='n'?'text':'decimal';i.placeholder=ph;i.value=p[k];i.maxLength=40;i.setAttribute('aria-label',ph);i.oninput=()=>{p[k]=i.value;save()};i.onchange=()=>render();v.append(i)});
+ const oc=cu==='CDF'?'USD':'CDF',cv=x=>cu==='CDF'?x/S.rate:x*S.rate;
+ if(s>0)v.append(E('p','mut',g>0?`Bénéfice par vente : ${fm(g,cu)} (≈ ${fm(cv(g),oc)}) · ${Math.round(g/s*100)} % du prix`:"Attention : ton prix de vente doit dépasser ton prix d'achat."));
+ const L=S.log.filter(x=>(x.p||0)===S.sel),n=L.length,w=L.filter(x=>x.s).length,pr=n?Math.round(w/n*100):0;
+ const lv=n<10?'Encore '+(10-n)+' propositions pour ton niveau':pr>=30?'Vendeur solide':pr>=10?'En progression':'Débutant : change ton discours';
+ const c=E('div','card');c.style.cssText='display:flex;flex-direction:column;gap:8px';
+ c.append(E('p','mut','Ton niveau'),E('h2','',lv),E('p','',`${n} propositions · ${w} ventes · ${pr} % de réussite`),E('p','mut',`Bénéfice estimé : ${fm(w*Math.max(g,0),cu)}`));v.append(c);
+ const r=E('div','row');[['Il a refusé',0],['Il a acheté',1]].forEach(([l,x])=>{const b=E('button',x?'btn':'opt',l);b.style.flex='1';b.onclick=()=>{S.log.push({d:dkey(),p:S.sel,s:x});save();render()};r.append(b)});v.append(r);
+ if(n){const u=E('button','chip','Annuler la dernière réponse');u.onclick=()=>{const ix=S.log.map(x=>x.p||0).lastIndexOf(S.sel);if(ix>=0)S.log.splice(ix,1);save();render()};v.append(u)}
+ const msg=`Bonjour ! Je vends ${p.n||'mon produit'} à ${s?fm(s,cu):'un bon prix'}. Disponible maintenant, livraison possible. Intéressé(e) ? Réponds-moi ici.`;
+ const cp=E('button','opt','Copier mon message WhatsApp');cp.onclick=async()=>{try{await navigator.clipboard.writeText(msg);cp.textContent='Message copié'}catch(e){cp.textContent='Copie impossible'}};v.append(cp);
+ const pb=E('button','btn',busy?'Essor écrit…':'Créer mon discours de vente');pb.disabled=busy||!p.n||!smp;pb.onclick=pitch;v.append(pb);
+ if(!smp)v.append(E('p','mut','Le discours IA demande d\u2019ouvrir la page depuis claude.ai.'));
+ if(PT){const k=E('div','card');k.style.whiteSpace='pre-wrap';k.textContent=PT;v.append(k)}
+ v.append(E('p','mut','Le niveau est une estimation basée sur tes propres essais.'))}
+function biz(v){
+ v.append(E('h2','','Quel commerce lancer ?'),E('p','mut','Remplis 4 champs. Essor propose 3 idées et comment les créer.'));
+ if(!smp){v.append(E('p','mut','Cette fonction utilise le coach IA. Ouvre la page depuis claude.ai.'));return}
+ [['b','Budget de départ en dollars (ex. 50)'],['s','Ce que tu sais faire'],['v','Ta ville'],['t','Temps par jour (ex. 3 heures)']].forEach(([k,p])=>{const i=E('input');i.type='text';i.placeholder=p;i.value=BF[k];i.maxLength=80;i.setAttribute('aria-label',p);i.oninput=()=>{BF[k]=i.value};v.append(i)});
+ const b=E('button','btn',busy?'Essor réfléchit…':'Trouver mes idées');b.disabled=busy;b.onclick=ideas;v.append(b);
+ if(B&&!B.length)v.append(E('p','mut','Je n\u2019ai pas pu créer d\u2019idées. Réessaie.'));
+ (B||[]).forEach(x=>{const c=E('div','card');c.style.cssText='display:flex;flex-direction:column;gap:8px';
+  c.append(E('h2','',String(x.nom||'')),E('p','',String(x.pourquoi||'')),E('p','mut','Capital : '+String(x.capital||'')+' · Gain possible : '+String(x.gain||'')));
+  (Array.isArray(x.etapes)?x.etapes:[]).slice(0,3).forEach((e,i)=>c.append(E('p','',(i+1)+'. '+String(e))));
+  const u=E('button','opt','En faire mon objectif');u.onclick=()=>{S.goal=String(x.nom||'').slice(0,80);save();tab='plan';newPlan()};c.append(u);v.append(c)});
+ v.append(E('p','mut','Ce sont des estimations, pas des garanties de gain. Teste petit avant de dépenser.'))}
+let EP=0,AP=1,CM=0,DR=null,MSG='';
+const ini=s=>(s||'M').trim().slice(0,1).toUpperCase()||'M';
+function shrink(f){return new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,480/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.72))};im.onerror=no;im.src=r.result};r.onerror=no;r.readAsDataURL(f)})}
+const b2f=(u,n)=>{const h=u.split(','),a=atob(h[1]),b=new Uint8Array(a.length);for(let i=0;i<a.length;i++)b[i]=a.charCodeAt(i);return new File([b],n,{type:'image/jpeg'})};
+const wa=(p,t)=>'https://wa.me/'+String(p||'').replace(/\D/g,'')+'?text='+encodeURIComponent(t);
+const ptxt=x=>`${x.n} : ${fm(parseFloat(x.p)||0,x.c)}\n${x.d||''}\nBoutique ${S.me.s||S.me.n||''} ${S.me.c||''}\nCommande sur WhatsApp : ${S.me.t||''}`;
+async function share(x){try{const ms=x.im&&x.im.length?x.im:(x.i?[x.i]:[]),f=ms.map((u,k)=>b2f(u,'produit'+(k+1)+'.jpg'));if(f.length&&navigator.canShare&&navigator.canShare({files:f})){await navigator.share({files:f,text:ptxt(x)});return}await navigator.clipboard.writeText(ptxt(x));MSG='Texte copié : colle-le dans WhatsApp ou Facebook.'}catch(e){MSG='Partage annulé ou impossible.'}render()}
+function pfm(v){const c=E('div','card');c.style.cssText='display:flex;flex-direction:column;gap:10px';
+ [['n','Ton nom'],['s','Nom de ta boutique'],['c','Ta ville'],['t','Numéro WhatsApp (ex. 243812345678)'],['d','Description de ta boutique'],['f','Lien Facebook'],['k','Lien TikTok'],['m','Numéro M-Pesa'],['o','Numéro Orange Money'],['b','Compte bancaire (banque + numéro)'],['x','Réduction : à partir de combien de produits (ex. 3)'],['y','Pourcentage de réduction (ex. 10)']].forEach(([k,ph])=>{const i=E('input');i.type='text';if(k==='t')i.inputMode='tel';i.placeholder=ph;i.value=S.me[k]||'';i.maxLength=120;i.setAttribute('aria-label',ph);i.oninput=()=>{S.me[k]=i.value;save()};c.append(i)});
+ const b=E('button','btn','Enregistrer mon profil');b.onclick=()=>{EP=0;render()};c.append(b);v.append(c)}
+function pform(v){
+ DR=DR||{n:'',p:'',c:'USD',d:'',i:''};
+ const c=E('div','card');c.style.cssText='display:flex;flex-direction:column;gap:10px';
+ DR.im=DR.im||[];
+ const zn=E('div','opt','');zn.style.cssText='display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-style:dashed;border-width:2px;cursor:pointer;min-height:120px;text-align:center';
+ zn.innerHTML='<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+ zn.append(E('b','','Ajouter des photos ('+DR.im.length+'/4)'),E('span','mut','Touche l\u2019appareil photo pour ouvrir la galerie'));
+ const f=E('input');f.type='file';f.accept='image/*';f.multiple=true;f.style.cssText='position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px';f.setAttribute('aria-label','Ajouter des photos depuis la galerie');
+ f.onchange=async()=>{for(const fl of [...f.files].slice(0,4-DR.im.length)){try{DR.im.push(await shrink(fl))}catch(e){MSG='Photo impossible. Essaie une autre photo ou ouvre la page dans Chrome.'}}render()};zn.style.position='relative';zn.append(f);c.append(zn);
+ if(DR.im.length){const tg=E('div','chips');DR.im.forEach((u,k)=>{const w=E('div');w.style.cssText='position:relative;width:72px;height:72px';const im=E('img');im.src=u;im.alt='Photo '+(k+1);im.style.cssText='width:72px;height:72px;object-fit:cover;border-radius:12px';const rm=E('button','chip','×');rm.setAttribute('aria-label','Retirer la photo '+(k+1));rm.style.cssText='position:absolute;top:-6px;right:-6px;min-height:28px;width:28px;padding:0';rm.onclick=()=>{DR.im.splice(k,1);render()};w.append(im,rm);tg.append(w)});c.append(tg)}
+ [['n','Nom du produit'],['p','Prix en '+(DR.c==='CDF'?'FC':'$')],['d','Description (ex. neuf, taille, couleur)']].forEach(([k,ph])=>{const i=E('input');i.type='text';if(k==='p')i.inputMode='decimal';i.placeholder=ph;i.value=DR[k];i.maxLength=k==='d'?120:40;i.setAttribute('aria-label',ph);i.oninput=()=>{DR[k]=i.value};c.append(i)});
+ const cr=E('div','row');[['USD','Dollars ($)'],['CDF','Francs (FC)']].forEach(([k,l])=>{const b=E('button','opt'+(DR.c===k?' on':''),l);b.style.flex='1';b.onclick=()=>{DR.c=k;render()};cr.append(b)});c.append(cr);
+ const vb=E('button','opt',RC?'Arrêter l\u2019enregistrement (30 s max)':(DR.a?'Refaire le message vocal':'Enregistrer un message vocal'));vb.onclick=()=>recVoice(u=>{DR.a=u;render()});c.append(vb);
+ if(DR.a){const au=E('audio');au.controls=true;au.src=DR.a;au.style.width='100%';c.append(au)}
+ const sv=E('button','btn','Publier dans ma boutique');sv.onclick=()=>{if(!DR.n.trim()||!(parseFloat(DR.p)>0)){MSG='Ajoute le nom et le prix du produit avant de publier.';render();return}S.shop.unshift({id:Date.now(),n:DR.n.trim(),p:DR.p,c:DR.c,d:DR.d,im:DR.im,a:DR.a});DR=null;AP=0;MSG='Produit publié dans ta boutique.';save();render()};c.append(sv);v.append(c)}
+function shop(v){
+ const me=S.me,h=E('div','hero'),hr=E('div','row'),tx=E('div');hr.style.alignItems='center';
+ tx.append(E('h2','',me.s||'Ma boutique'),E('p','mut',[me.n,me.c].filter(Boolean).join(' · ')||'Complète ton profil'));hr.append(E('div','ava',ini(me.s||me.n)),tx);h.append(hr);if(me.d)h.append(E('p','',me.d));v.append(h);
+ {const lk=E('div','chips');[['WhatsApp',me.t?wa(me.t,'Bonjour, je veux négocier sur ta boutique.'):''],['Facebook',me.f],['TikTok',me.k]].forEach(([l,u])=>{if(u){const a=E('a','chip',l);a.href=/^https?:/i.test(u)?u:'https://'+u;a.target='_blank';a.rel='noopener';a.style.cssText='display:flex;align-items:center;text-decoration:none;color:inherit';lk.append(a)}});if(lk.children.length)v.append(lk);else if(!CM)v.append(E('p','mut','Ajoute tes liens WhatsApp, Facebook et TikTok dans Modifier mon profil.'))}
+ const mr=E('div','row');[['Gérer',0],['Vue client',1]].forEach(([l,k])=>{const b=E('button','opt'+(CM===k?' on':''),l);b.style.flex='1';b.onclick=()=>{CM=k;render()};mr.append(b)});v.append(mr);
+ if(MSG){v.append(E('p','mut',MSG));MSG=''}
+ if(CM&&!me.t)v.append(E('p','mut','Ajoute ton numéro WhatsApp dans ton profil pour recevoir les commandes.'));
+ if(!CM){
+  const pb=E('button','opt',EP?'Fermer le profil':'Modifier mon profil');pb.onclick=()=>{EP=!EP;render()};v.append(pb);if(EP)pfm(v);
+  const ab=E('button','btn',AP?'Fermer':'+ Ajouter un produit');ab.onclick=()=>{if(!AP&&!S.pro&&S.shop.length>=5){NG=1;render();return}AP=!AP;render()};v.append(ab);if(AP)pform(v);
+  const us=S.sold.filter(x=>x.c==='USD').reduce((a,x)=>a+x.t,0),cd=S.sold.filter(x=>x.c==='CDF').reduce((a,x)=>a+x.t,0);
+  const c=E('div','card');c.append(E('p','mut','Chiffre d\u2019affaires · '+S.sold.length+' ventes'),E('h2','',fm(us,'USD')+' + '+fm(cd,'CDF')),E('p','mut','≈ '+fm(us+cd/S.rate,'USD')+' au taux du jour'));v.append(c)}
+ if(!S.shop.length){v.append(E('p','mut','Ajoute ton premier produit avec une belle photo.'));return}
+ const gr=E('div','grid');
+ S.shop.forEach(x=>{const c=E('div','pc');
+  const ms=x.im&&x.im.length?x.im:(x.i?[x.i]:[]);
+  if(ms.length){const im=E('img');im.src=ms[0];im.alt=x.n;c.append(im);if(ms.length>1){const th=E('div');th.style.cssText='flex-direction:row;flex-wrap:wrap;gap:4px;padding:6px 10px 0';ms.forEach((u,k)=>{const b=E('button','');b.style.cssText='width:36px;height:36px;padding:0;border:1px solid var(--line);border-radius:8px;background:none;overflow:hidden;cursor:pointer';b.setAttribute('aria-label','Voir la photo '+(k+1));const t=E('img');t.src=u;t.alt='';t.style.cssText='width:36px;height:36px;aspect-ratio:auto';b.append(t);b.onclick=()=>{im.src=u};th.append(b)});c.append(th)}}else{const ph=E('div','',ini(x.n));ph.style.cssText='aspect-ratio:1;background:var(--line);align-items:center;justify-content:center;font-size:32px;color:var(--mut)';c.append(ph)}
+  const d=E('div');d.append(E('b','',x.n),E('p','',fm(parseFloat(x.p)||0,x.c)));if(x.d)d.append(E('p','mut',x.d));
+  if(x.a){const au=E('audio');au.controls=true;au.src=x.a;au.style.width='100%';d.append(au)}
+  if(CM){const q=CART[x.id]||0,ab=E('button',q?'btn':'opt',q?'Dans le panier ('+q+') +':'Ajouter au panier');ab.onclick=()=>{CART[x.id]=q+1;render()};d.append(ab)}
+  else{const s1=E('button','chip','Partager');s1.onclick=()=>share(x);const s2=E('button','chip','Vendu +1');s2.onclick=()=>{S.sold.push({d:dkey(),id:x.id,t:parseFloat(x.p)||0,c:x.c});save();render()};
+   const s3=E('button','chip','Supprimer');s3.onclick=()=>{if(s3.dataset.s){S.shop=S.shop.filter(y=>y!==x);save();render()}else{s3.dataset.s=1;s3.textContent='Confirmer ?'}};d.append(s1,s2,s3)}
+  c.append(d);gr.append(c)});v.append(gr);if(CM)cart(v)}
+let CART={};
+function cart(v){
+ const L=S.shop.filter(x=>CART[x.id]),me=S.me;if(!L.length)return;
+ const qn=L.reduce((a,x)=>a+CART[x.id],0),mn=parseInt(me.x)||0,pc=parseFloat(me.y)||0,ds=mn>0&&pc>0&&qn>=mn;
+ const tot={USD:0,CDF:0};L.forEach(x=>{tot[x.c==='CDF'?'CDF':'USD']+=(parseFloat(x.p)||0)*CART[x.id]});
+ const c=E('div','card');c.style.cssText='display:flex;flex-direction:column;gap:8px';c.append(E('h2','','Mon panier ('+qn+')'));
+ L.forEach(x=>{const r=E('div','row');r.style.alignItems='center';const t=E('span','',CART[x.id]+' × '+x.n);t.style.flex='1';const m=E('button','chip','−');m.setAttribute('aria-label','Retirer un');m.onclick=()=>{CART[x.id]--;if(CART[x.id]<=0)delete CART[x.id];render()};r.append(t,E('span','mut',fm((parseFloat(x.p)||0)*CART[x.id],x.c)),m);c.append(r)});
+ if(mn&&pc)c.append(E('p','mut',ds?'Réduction fidélité '+pc+' % appliquée':'Achète '+mn+' produits ou plus pour '+pc+' % de réduction'));
+ const f=k=>tot[k]*(ds?1-pc/100:1),ln=[];['USD','CDF'].forEach(k=>{if(tot[k])ln.push(fm(f(k),k))});
+ c.append(E('h2','','Total : '+ln.join(' + ')));
+ const pay=[['M-Pesa',me.m],['Orange Money',me.o],['Compte bancaire',me.b]].filter(p=>p[1]);
+ if(pay.length)c.append(E('p','mut','Paiement au vendeur : '+pay.map(p=>p[0]+' '+p[1]).join(' · ')));
+ const txt=`Bonjour, je veux commander :\n${L.map(x=>CART[x.id]+' × '+x.n+' ('+fm(parseFloat(x.p)||0,x.c)+')').join('\n')}\nTotal : ${ln.join(' + ')}${ds?' (réduction '+pc+' % incluse)':''}\nJe paie par : M-Pesa, Orange Money ou banque (dis-moi lequel).`;
+ if(me.t){const a=E('a','btn','Envoyer ma commande sur WhatsApp');a.href=wa(me.t,txt);a.target='_blank';a.rel='noopener';c.append(a)}else c.append(E('p','mut','Le vendeur n\u2019a pas encore ajouté son numéro WhatsApp.'));
+ const e=E('button','chip','Vider le panier');e.onclick=()=>{CART={};render()};c.append(e,E('p','mut','Paiement direct au vendeur : il confirme la réception avant de livrer.'));v.append(c)}
+function adBanner(v){
+ if(S.pro)return;
+ const w=E('div','card');w.style.cssText='padding:0;overflow:hidden';
+ const tg=E('p','mut','Sponsorisé');tg.style.cssText='padding:6px 12px 0;font-size:12px';w.append(tg);
+ if(S.ad.i){const im=E('img');im.src=S.ad.i;im.alt=S.ad.t||'Publicité';im.style.cssText='width:100%;max-height:140px;object-fit:cover;display:block';
+  if(S.ad.l){const a=E('a');a.href=/^https?:/i.test(S.ad.l)?S.ad.l:'https://'+S.ad.l;a.target='_blank';a.rel='noopener';a.append(im);w.append(a)}else w.append(im);
+  if(S.ad.t){const t=E('p','',S.ad.t);t.style.cssText='padding:8px 12px;font-weight:700';w.append(t)}}
+ else{const p=E('p','mut','Espace publicitaire : ta pub ici. Ajoute une bannière dans l\u2019onglet Plus.');p.style.cssText='padding:14px 12px;text-align:center;border:1px dashed var(--line);margin:8px;border-radius:12px';w.append(p)}
+ v.append(w)}
+function adEdit(v){
+ const c=E('div','card');c.style.cssText='display:flex;flex-direction:column;gap:10px';
+ c.append(E('h2','','Espace publicitaire'),E('p','mut','Bannière affichée aux utilisateurs gratuits. Dans la version Android, l\u2019administrateur la gère pour tous.'));
+ const z=E('div','opt',S.ad.i?'Changer la bannière':'Ajouter une image de bannière');z.style.cssText='display:flex;align-items:center;justify-content:center;border-style:dashed;cursor:pointer;min-height:56px';
+ const f=E('input');f.type='file';f.accept='image/*';f.style.cssText='position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px';f.setAttribute('aria-label','Image de la bannière');
+ f.onchange=async()=>{if(f.files[0]){try{S.ad.i=await shrink(f.files[0]);save()}catch(e){}render()}};z.style.position='relative';z.append(f);c.append(z);
+ [['t','Titre de la pub'],['l','Lien (WhatsApp, Facebook, site)']].forEach(([k,ph])=>{const i=E('input');i.type='text';i.placeholder=ph;i.value=S.ad[k]||'';i.maxLength=120;i.setAttribute('aria-label',ph);i.oninput=()=>{S.ad[k]=i.value;save()};i.onchange=()=>render();c.append(i)});
+ if(S.ad.i){const r=E('button','chip','Retirer la bannière');r.onclick=()=>{S.ad={i:'',l:'',t:''};save();render()};c.append(r)}
+ v.append(c)}
+let RC=null;
+async function recVoice(done){
+ try{
+  if(RC){RC.stop();return}
+  const st=await navigator.mediaDevices.getUserMedia({audio:true}),ch=[];
+  RC=new MediaRecorder(st);
+  RC.ondataavailable=e=>ch.push(e.data);
+  RC.onstop=()=>{st.getTracks().forEach(t=>t.stop());const b=new Blob(ch,{type:(RC&&RC.mimeType)||'audio/webm'});RC=null;const r=new FileReader();r.onload=()=>done(r.result);r.readAsDataURL(b)};
+  RC.start();setTimeout(()=>{if(RC&&RC.state==='recording')RC.stop()},30000);render()
+ }catch(e){RC=null;MSG='Micro indisponible ici. Autorise le micro ou ouvre la page dans Chrome.';render()}}
+function guide(v){
+ v.append(E('h2','','Guide du vendeur'),E('p','mut','Leçons courtes : questions, réponses, vente en ligne, prix.'));
+ LES.forEach(([t,pts],i)=>{const d=document.createElement('details');d.className='card';if(!i)d.open=true;const s=E('summary','',t);s.style.cssText='font-weight:700;cursor:pointer;min-height:32px';d.append(s);pts.forEach(x=>{const p=E('p','',x);p.style.marginTop='8px';d.append(p)});v.append(d)})}
+function coach(v){
+ if(!smp){v.append(E('p','mut','Le coach IA n\u2019est pas disponible dans ce mode. Ouvre cette page depuis claude.ai pour discuter avec Essor.'));return}
+ if(!C.length)v.append(E('p','mut','Pose une question de vente à Essor. Réponses courtes, pour consommer peu de données.'));
+ C.forEach((m,i)=>{const b=E('div','msg '+(m.role==='user'?'me':'ai'),m.content||'…');v.append(b);if(i===C.length-1&&m.role==='assistant')LB=b});
+ const ch=E('div','chips');['Comment trouver mes premiers clients ?','Que répondre à « c\u2019est cher » ?','Fais le bilan de ma journée'].forEach(q=>{const b=E('button','chip',q);b.disabled=busy;b.onclick=()=>send(q);ch.append(b)});v.append(ch);
+ const r=E('div','row'),i=E('input');i.type='text';i.placeholder='Écris à Essor';i.maxLength=300;i.setAttribute('aria-label','Message');
+ const s=E('button','btn','Envoyer');s.disabled=busy;s.onclick=()=>send(i.value);i.onkeydown=e=>{if(e.key==='Enter')send(i.value)};r.append(i,s);v.append(r)}
+function plus(v){
+ const h=E('div','hero');h.append(E('p','mut','Essor Premium'),E('h1','',S.pro?'Premium actif (démo)':'1 $ par mois'),E('p','mut','≈ '+fm(S.rate,'CDF')+' par mois, payable par Mobile Money'));
+ ['Boutique avec produits illimités','Idées de commerce illimitées','Discours de vente illimités','Coach IA illimité','Aucune publicité'].forEach(t=>h.append(E('p','','• '+t)));
+ h.append(E('p','mut','Gratuit : 5 produits en boutique, 1 recherche d\u2019idées, 2 discours et 5 questions au coach par jour.'));v.append(h);
+ const b=E('button','btn',S.pro?'Revenir à Gratuit (démo)':'Essayer Premium (démo)');b.onclick=()=>{S.pro=S.pro?0:1;save();render()};v.append(b,E('p','mut','Le vrai paiement Mobile Money sera branché dans la version Android.'));
+ const c=E('div','card');c.style.cssText='display:flex;flex-direction:column;gap:8px';c.append(E('h2','','Taux de change'),E('p','mut','Combien de francs pour 1 $ ? Mets à jour selon le taux du jour.'));
+ const i=E('input');i.type='text';i.inputMode='decimal';i.value=S.rate;i.setAttribute('aria-label','Francs pour 1 dollar');i.onchange=()=>{const x=parseFloat(i.value.replace(',','.'));if(x>0){S.rate=x;save()}render()};c.append(i);v.append(c);
+ adEdit(v);prog(v);guide(v)}
+function prog(v){
+ const w=E('div','week'),tot=Object.keys(S.tasks).reduce((a,d)=>a+doneN(d),0);
+ for(let k=6;k>=0;k--){const d=new Date();d.setDate(d.getDate()-k);const c=doneN(fd(d)),x=E('div'),b=document.createElement('i');b.style.height=(c/3*60+4)+'px';x.append(b,E('span','',d.toLocaleDateString('fr',{weekday:'narrow'})));w.append(x)}
+ const c1=E('div','card');c1.append(E('p','mut','Série en cours'),E('h1','',streak()+' jour'+(streak()>1?'s':'')),E('p','mut','Un jour compte à partir de 2 actions faites.'));
+ const c2=E('div','card');c2.append(E('h2','','7 derniers jours'),w);
+ const c3=E('div','card');c3.append(E('p','mut','Actions terminées au total · Ventes réussies'),E('h1','',tot+' · '+S.log.filter(x=>x.s).length));
+ const rs=E('button','opt','Changer d\u2019objectif');rs.onclick=()=>{S.goal='';pick='';tab='plan';save();render()};
+ const lo=E('button','opt','Se déconnecter'+(S.acct?' ('+S.acct.e+')':''));lo.onclick=()=>{S.in=0;AM='in';save();render()};v.append(c1,c2,c3,rs,lo)}
+load();render();
+if(!S.tasks[dkey()]&&S.goal)newPlan();
+try{window.claude&&claude.use('sample').then(s=>{smp=s;render()})}catch(e){}
+</script>
+<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){})</script>
+</body>
+</html>
